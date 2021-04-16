@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class JuiceSelection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    JuiceStorage m_JuiceStorage;
 
-    // Update is called once per frame
-    void Update()
+    public void AddJuice()
     {
-        
+        Debug.Assert(m_JuiceStorage != null, "Juice Storage must be assigned");
+        m_JuiceStorage.AddJuice();
     }
 }

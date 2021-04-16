@@ -6,9 +6,11 @@ public class Juice : MonoBehaviour
 {
     [SerializeField]
     MeshRenderer m_JuiceMeshRenderer;
+
+    const string k_URPListShader = "Universal Render Pipeline/Lit";
     public void SetJuiceColor(Color juiceColor)
     {
-        Material newMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        Material newMat = new Material(Shader.Find(k_URPListShader));
         newMat.color = juiceColor;
 
         if (m_JuiceMeshRenderer != null)

@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 
-public class FruitSelectionManager : MonoBehaviour
+public class MouseInputManager : MonoBehaviour
 {
     [SerializeField]
     Camera m_MainCamera;
-    
     
     GameObject m_CurrentFruitSelected;
     Vector2 m_CurrentMousePosition;
@@ -35,6 +33,18 @@ public class FruitSelectionManager : MonoBehaviour
                     m_CurrentFruitSelected = m_HitInfo.transform.gameObject;
                     fruit.isHeld = true;
                     m_CurrentFruitSelected.GetComponent<Rigidbody>().isKinematic = true;
+                }
+                
+                // check if it's a button
+                if (m_HitInfo.transform.TryGetComponent(out ButtonManager button))
+                {
+                    button.Press();
+                }
+
+                // check if it's a Juice glass
+                if (m_HitInfo.transform.TryGetComponent(out JuiceSelection juice))
+                {
+                    juice.AddJuice();
                 }
             }
         }

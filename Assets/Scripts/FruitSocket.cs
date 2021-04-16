@@ -1,20 +1,17 @@
 #nullable enable
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FruitSocket : MonoBehaviour
 {
-    bool m_HasFruit = false;
-    
-    Fruit m_CurrentFruit;
+    Fruit? m_CurrentFruit = null;
 
     public Fruit currentFruit
     {
         get => m_CurrentFruit;
     }
 
-    GameObject? m_FruitObject;
+    GameObject? m_FruitObject = null;
 
     public GameObject fruitObject
     {
@@ -25,14 +22,12 @@ public class FruitSocket : MonoBehaviour
     {
         if (other.transform.TryGetComponent(out Fruit fruit))
         {
-            if (!m_HasFruit && !fruit.isHeld)
+            if (m_FruitObject == null && !fruit.isHeld)
             {
-                m_HasFruit = true;
                 m_CurrentFruit = fruit;
                 m_FruitObject = other.gameObject;
                 m_FruitObject.GetComponent<Rigidbody>().isKinematic = true;
-                m_FruitObject.transform.position = transform.position;
-                m_FruitObject.transform.rotation = Quaternion.identity;
+                m_FruitObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
             }
         }
     }
@@ -41,7 +36,7 @@ public class FruitSocket : MonoBehaviour
     {
         if (other.transform.TryGetComponent(out Fruit fruit))
         {
-            m_HasFruit = false;
+            m_FruitObject = null;
             m_CurrentFruit = null;
         }
     }

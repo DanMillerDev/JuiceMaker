@@ -3,18 +3,11 @@ using UnityEngine;
 
 public class JuiceCreationManager : MonoBehaviour
 {
-
-    [SerializeField]
-    Camera m_MainCamera;
-
     [SerializeField]
     FruitSocket m_FirstSocket;
 
     [SerializeField]
     FruitSocket m_SecondSocket;
-
-    [SerializeField]
-    UIJuiceManager m_UIJuiceManager;
 
     [SerializeField]
     Color m_AppleJuiceColor;
@@ -67,39 +60,31 @@ public class JuiceCreationManager : MonoBehaviour
         OrangePeachJuice
     }
 
-    public JuiceTypes m_CurrentJuice;
-    
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Assert(m_MainCamera != null, "Camera can't be null");
-            if (Physics.Raycast(m_MainCamera.ScreenPointToRay(Input.mousePosition), out m_HitInfo))
-            {
-                if (m_HitInfo.transform.TryGetComponent(out ButtonManager button))
-                {
-                    button.Press();
-                    if (m_FirstSocket.currentFruit != null && m_SecondSocket.currentFruit != null)
-                    {
-                        m_CurrentJuice = MakeJuice(m_FirstSocket.currentFruit.FruitClassification, m_SecondSocket.currentFruit.FruitClassification);
-                        FillJuice();
-                    }
-                }
+    public JuiceTypes CurrentJuice;
 
-                if (m_HitInfo.transform.TryGetComponent(out JuiceSelection juice))
-                {
-                    m_UIJuiceManager.SpawnJuice(GetJuiceColor(m_CurrentJuice));
-                    m_JuiceAnimator.SetTrigger(k_EmptyAnimTrigger);
-                }
-            }
+    public bool TryCreateJuice()
+    {
+        if (m_FirstSocket.currentFruit == null || m_SecondSocket.currentFruit == null)
+        {
+            Debug.Log($"Juice not set in socket");
+            return false;
         }
+
+        CurrentJuice = MakeJuice(m_FirstSocket.currentFruit.FruitClassification, m_SecondSocket.currentFruit.FruitClassification);
+        FillJuice();
+        return true;
+    }
+
+    public Color GetCurrentJuiceColor()
+    {
+        return GetJuiceColor(CurrentJuice);
     }
 
     void FillJuice()
     {
         // set color and animate juice
         Debug.Assert(m_JuiceMaterial != null, "Material needs to be set");
-        m_JuiceMaterial.color = GetJuiceColor(m_CurrentJuice);
+        m_JuiceMaterial.color = GetJuiceColor(CurrentJuice);
         m_JuiceAnimator.SetTrigger(k_FillAnimTrigger);
         
         Destroy(m_FirstSocket.fruitObject);
