@@ -45,7 +45,6 @@ public class JuiceCreationManager : MonoBehaviour
     RaycastHit m_HitInfo;
 
     const string k_FillAnimTrigger = "Fill";
-    const string k_EmptyAnimTrigger = "Empty";
 
     public enum JuiceTypes
     {
@@ -86,7 +85,7 @@ public class JuiceCreationManager : MonoBehaviour
         Debug.Assert(m_JuiceMaterial != null, "Material needs to be set");
         m_JuiceMaterial.color = GetJuiceColor(CurrentJuice);
         m_JuiceAnimator.SetTrigger(k_FillAnimTrigger);
-        
+
         Destroy(m_FirstSocket.fruitObject);
         Destroy(m_SecondSocket.fruitObject);
     }
@@ -120,4 +119,43 @@ public class JuiceCreationManager : MonoBehaviour
             JuiceTypes.OrangePeachJuice => m_OrangePeachJuiceColor,
             _ => Color.white
         };
+
+    Color GetJuiceColorSwitch(JuiceTypes juice)
+    {
+        Color retVal = Color.white;
+
+        switch (juice)
+        {
+            case JuiceTypes.AppleJuice:
+                retVal = m_AppleJuiceColor;
+                break;
+            case JuiceTypes.ApplePeachJuice:
+                retVal = m_ApplePeachJuiceColor;
+                break;
+            case JuiceTypes.AppleOrangeJuice:
+                retVal = m_AppleOrangeJuiceColor;
+                break;
+            case JuiceTypes.PeachJuice:
+                retVal = m_PeachJuiceColor;
+                break;
+            case JuiceTypes.PeachAppleJuice:
+                retVal = m_PeachAppleJuiceColor;
+                break;
+            case JuiceTypes.PeachOrangeJuice:
+                retVal = m_PeachOrangeJuiceColor;
+                break;
+            case JuiceTypes.OrangeJuice:
+                retVal = m_OrangeJuiceColor;
+                break;
+            case JuiceTypes.OrangeAppleJuice:
+                retVal = m_OrangeAppleJuiceColor;
+                break;
+            case JuiceTypes.OrangePeachJuice:
+                retVal = m_OrangePeachJuiceColor;
+                break;
+        }
+
+        return retVal;
+        
+    }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,18 +24,20 @@ public class JuiceStorage : MonoBehaviour
     TMP_Dropdown m_EndIndexDropdown;
 
     const float k_GlassSpacing = 1.0f;
-    Quaternion m_GlassRotation = new Quaternion(0, 0, 0.2f, 1);
-
-    List<GameObject> m_GlassesInBag;
-
     const string k_EmptyAnimTrigger = "Empty";
+    Quaternion m_GlassRotation = new Quaternion(0, 0, 0.2f, 1);
+    
+    [SerializeField]
+    List<GameObject> m_GlassesInBag;
 
     void OnEnable()
     {
         m_GlassesInBag ??= new List<GameObject>();
-        
-        
-        //m_StartIndexDropdown.options.Add(new TMP_Dropdown.OptionData(2.ToString()));
+    }
+
+    void Update()
+    {
+        m_EndIndexDropdown.gameObject.SetActive(m_GlassesInBag.Count > 1);
     }
 
     public void SpawnJuice(Color juiceColor)
@@ -44,6 +45,7 @@ public class JuiceStorage : MonoBehaviour
         Vector3 offset = new Vector3((m_GlassesInBag.Count + 1) * k_GlassSpacing, 0, 0);
         GameObject newJuice = Instantiate(m_GlassPrefab, m_StartingTransform.position - offset, m_GlassRotation);
         m_GlassesInBag.Add(newJuice);
+        UpdateDropdownIndices();
 
         if (newJuice.TryGetComponent(out Juice juice))
         {
@@ -57,5 +59,39 @@ public class JuiceStorage : MonoBehaviour
         SpawnJuice(m_JuiceCreationManager.GetCurrentJuiceColor());
         Debug.Assert(m_JuiceAnimator != null, "Juice animator needs to be set");
         m_JuiceAnimator.SetTrigger(k_EmptyAnimTrigger);
+    }
+
+    void UpdateDropdownIndices()
+    {
+        m_StartIndexDropdown.options.Add(new TMP_Dropdown.OptionData(m_GlassesInBag.Count.ToString()));
+        m_EndIndexDropdown.options.Add(new TMP_Dropdown.OptionData(m_GlassesInBag.Count.ToString()));
+    }
+
+    void DrinkJuice()
+    {
+
+        GameObject[] glassesTest = new [] { this.gameObject, this.gameObject, this.gameObject, this.gameObject, this.gameObject };
+        
+        //Debug.Log(glassesTest[^2]);
+        
+        // values are the same, drink one juice
+        if (m_StartIndexDropdown.value == m_EndIndexDropdown.value)
+        {
+            Destroy(m_GlassesInBag[m_StartIndexDropdown.value]);
+            m_GlassesInBag.RemoveAt(m_StartIndexDropdown.value);
+        }
+        // drink juices in range
+        else
+        {
+            //var allGlasses = m_GlassesInBag[..];
+            //var lastGlass = m_GlassesInBag[^1];
+        }
+        
+        
+    }
+
+    void ReorderJuiceGlasses()
+    {
+        
     }
 }

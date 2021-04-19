@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class FruitSocket : MonoBehaviour
 {
-    Fruit? m_CurrentFruit = null;
+    Fruit? m_CurrentFruit;
 
-    public Fruit currentFruit
+    public Fruit? currentFruit
     {
         get => m_CurrentFruit;
     }
 
-    GameObject? m_FruitObject = null;
+    GameObject? m_FruitObject;
 
-    public GameObject fruitObject
+    public GameObject? fruitObject
     {
         get => m_FruitObject;
     }
