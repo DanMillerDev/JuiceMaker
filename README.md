@@ -1,5 +1,5 @@
 # Juice Maker
-Sample project utilizing C#8 syntax to showcase different use cases in a small Unity demo
+Sample project utilizing C# 8.0 syntax to showcase different use cases in a Unity demo
 
 ![FruitJuice](https://user-images.githubusercontent.com/2120584/115343688-2b94be00-a161-11eb-9f56-00bb15798aed.JPG)
 
