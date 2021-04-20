@@ -1,6 +1,7 @@
 # CSharp8_JuiceMaker
 Sample project utilizing C#8 syntax to showcase different use cases in a small Unity demo
 
+![FruitJuice](https://user-images.githubusercontent.com/2120584/115343688-2b94be00-a161-11eb-9f56-00bb15798aed.JPG)
 
 ## [Switch Expression](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#switch-expressions)
 Used [here](https://github.com/DanMillerDev/CSharp8_JuiceMaker/blob/main/Assets/Scripts/JuiceCreationManager.cs#L108-L121) in `JuiceCreationManager.cs` to return a color value based on a JuiceType enum input 
