@@ -61,9 +61,3 @@ public GameObject? fruitObject
     get => m_FruitObject;
 }
 ```
-
-## [Null-coalescing assignment](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#null-coalescing-assignment)
-Used [here](https://github.com/DanMillerDev/CSharp8_JuiceMaker/blob/main/Assets/Scripts/JuiceStorage.cs#L35) in `JuiceStorage.cs` to initialize a List of game objects if there haven't been any assigned in the inspector
-```
-m_GlassesInBag ??= new List<GameObject>();
-```
